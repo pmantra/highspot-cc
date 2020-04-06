@@ -1,4 +1,4 @@
-import { START_PAGE } from '../utils/constants';
+import { START_PAGE, DEFAULT_LAYOUT, RELAXED_LAYOUT, COMPACT_LAYOUT } from '../utils/constants';
 
 export const cardReducer = (state, action) => {
     const { cards, type, error, next, totalCount, pageSize } = action;
@@ -35,5 +35,19 @@ export const pageReducer = (state, action) => {
             return { ...state, page: START_PAGE};
         default:
             return state;
+    }
+}
+
+export const layoutReducer = (state, action) => {
+    const { type } = action;
+    switch (type) {
+        case 'RELAXED_LAYOUT':
+            return { ...state, layout: RELAXED_LAYOUT };
+        case 'DEFAULT_LAYOUT':
+            return { ...state, layout: DEFAULT_LAYOUT };
+        case 'COMPACT_LAYOUT':
+            return { ...state, layout: COMPACT_LAYOUT };
+        default:
+            return state
     }
 }

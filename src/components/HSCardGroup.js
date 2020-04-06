@@ -3,7 +3,7 @@ import { Card } from 'semantic-ui-react';
 import HSCard from './HSCard';
 import HSCardPlaceholder from './HSCardPlaceholder';
 
-const HSCardGroup = ({ cards, loading }) => {
+const HSCardGroup = ({ cards, loading, layout }) => {
     if(loading) {
         return (
             <Card.Group centered stackable
@@ -16,7 +16,7 @@ const HSCardGroup = ({ cards, loading }) => {
     }
     return (
         <Card.Group centered stackable
-            itemsPerRow={5} textAlign='center'>
+            itemsPerRow={layout} textAlign='center'>
             {cards && cards.map(item => (
                 <HSCard key={item.id} {...item} />
             ))}

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { Menu, Form, Icon } from 'semantic-ui-react';
 
-const AppHeader = ({ handleSearch, pageDispatch }) => {
+const AppHeader = ({ handleSearch, pageDispatch, layoutDispatch }) => {
     const [searchText, setSearchText] = useState('');
     const handleChange = (e, {value}) => {
         setSearchText (value);
     }
 
-    const handleItemClick = () => {
-        //TODO implement grid resize buttons
+    const handleItemClick = (e, { name }) => {
+        layoutDispatch ({ type: name.toUpperCase() });
     }
 
     const handleOnSubmit = () => {
@@ -31,17 +31,17 @@ const AppHeader = ({ handleSearch, pageDispatch }) => {
                 </Menu.Menu>
                 <Menu.Menu position='right'>
                     <Menu.Item
-                        name='relaxed'
+                        name='relaxed_layout'
                         onClick={handleItemClick}>
                             <Icon name='columns' />
                     </Menu.Item>
                     <Menu.Item
-                        name='default'
+                        name='default_layout'
                         onClick={handleItemClick}>
                             <Icon name='table' />
                     </Menu.Item>
                     <Menu.Item
-                        name='compact'
+                        name='compact_layout'
                         onClick={handleItemClick}>
                         <Icon name='grid layout' />
                     </Menu.Item>
