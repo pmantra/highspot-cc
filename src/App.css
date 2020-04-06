@@ -1,0 +1,37 @@
+.App {
+  text-align: center;
+  margin: 1rem;
+}
+
+.app-header {
+  margin-bottom: 5rem;
+}
+
+.app-body {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.card {
+  background: #282c34;
+}
+
+.card-header {
+  font-size: 1.1rem !important; /* override semantic default font-size*/
+}
+
+.card-description {
+  font-size: 1rem;
+}
+
+.card-meta {
+  font-size: 1rem;
+}
+
+.ui.card>.content>.header+.description, .ui.card>.content>.meta+.description, .ui.cards>.card>.content>.header+.description, .ui.cards>.card>.content>.meta+.description {
+  margin-top: 0em; /*override margin between header and description in the card*/
+}
+
+.ui.card>.content, .ui.cards>.card>.content {
+  padding: 0.5em 0.5em;
+}
