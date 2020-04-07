@@ -5,7 +5,7 @@ import { PLACEHOLDER_IMAGE } from '../utils/constants';
 export default function ImageCard (props) {
     const {name, imageUrl, text, set, type, cost, health, power} = props;
     return (
-        <Card>
+        <Card raised link>
             <Image src={PLACEHOLDER_IMAGE} className='card-image'
                 wrapped ui={false} data-url={imageUrl}/>
             <Card.Content>
@@ -20,22 +20,28 @@ export default function ImageCard (props) {
             <Card.Content extra>
                 <List horizontal>
                     {cost &&
-                        <List.Item>
-                            <Icon name='bitcoin' as='i' color='yellow'/>{cost}
+                        <List.Item as='a'>
+                            <Popup content='Cost' hideOnScroll
+                                trigger={<Icon name='bitcoin' as='i' color='yellow'/>} />
+                        {cost}
                         </List.Item>
                     }
                     {health &&
-                        <List.Item>
-                            <Icon name='heart' as='i' color='red'/>{health}
+                        <List.Item as='a'>
+                            <Popup content='Health' hideOnScroll
+                                trigger={<Icon name='heart' as='i' color='red'/>} />
+                            {health}
                         </List.Item>
                     }
                     {power &&
-                        <List.Item>
-                            <Icon name='bolt' as='i' color='violet'/>{power}
+                        <List.Item as='a'>
+                            <Popup content='Power' hideOnScroll
+                                trigger={<Icon name='bolt' as='i' color='violet'/>} />
+                            {power}
                         </List.Item>
                     }
                     {text &&
-                        <List.Item>
+                        <List.Item as='a'>
                             <Popup content={text} hideOnScroll inverted
                                 trigger={<Icon name='info circle' as='i' color='blue'/>} />
                         </List.Item>

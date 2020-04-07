@@ -12,8 +12,8 @@ import { API, DEFAULT_PAGE_SIZE } from '../utils/constants';
  * @param {*} pageSize - set at 20
  * @param {*} dispatch -
  */
-const useFetch = (searchKey, pageState, cardDispatch, pageDispatch) => {
-    const url = buildUrl(API, searchKey, pageState.page, DEFAULT_PAGE_SIZE);
+const useFetch = (searchKey, page, hasNext, cardDispatch, pageDispatch) => {
+    const url = buildUrl(API, searchKey, page, DEFAULT_PAGE_SIZE);
     useEffect (() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
@@ -25,7 +25,7 @@ const useFetch = (searchKey, pageState, cardDispatch, pageDispatch) => {
             try {
                 //call api to fetch cards if there is a next page available
                 //hasNext will be undefined is there is no next page returned in response
-                if (pageState.hasNext !== undefined) {
+                if (hasNext !== undefined) {
                     const response = await fetch(url);
                     const { cards, _links, _totalCount } = await response.json();
 
@@ -65,7 +65,7 @@ const useFetch = (searchKey, pageState, cardDispatch, pageDispatch) => {
         return () => {
             abortController.abort();
         }
-    }, [searchKey, pageState.page, cardDispatch])
+    }, [searchKey, page, cardDispatch])
 }
 
 export default useFetch;

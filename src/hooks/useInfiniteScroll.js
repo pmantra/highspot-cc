@@ -1,5 +1,4 @@
 import { useEffect, useCallback } from 'react'
-
 /**
  * Hook to apply infinite scrolling by incrementing the page count when user scrolls to the bottom
  * Uses scrollRef to listen to scrolling event and when scroll hits this reference an event is dispatched to increment the page count

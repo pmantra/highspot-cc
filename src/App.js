@@ -10,11 +10,12 @@ import { Loader } from 'semantic-ui-react';
 import { CARD_SELECTOR, START_PAGE, DEFAULT_LAYOUT } from './utils/constants';
 
 function App() {
+  //declare the initial state - can be scaled using redux
   const initialState = {
     cardState: {
       cards: [],
       error: null,
-      loading: false,
+      loading: null,
       totalCount: 0,
     },
     pageState: {
@@ -31,7 +32,7 @@ function App() {
   const [layoutData, layoutDispatch] = useReducer (layoutReducer, initialState.layoutState);
   const [searchText, setSearchText] = useState ('');
 
-  useFetch (searchText, pageData, cardDispatch, pageDispatch);
+  useFetch (searchText, pageData.page, pageData.hasNext, cardDispatch, pageDispatch);
   useLazyLoading (CARD_SELECTOR, cardData.cards);
   let scrollRef = useRef(null);
   useInfiniteScroll(scrollRef, pageDispatch);
