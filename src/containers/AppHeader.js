@@ -1,19 +1,26 @@
 import React, { useState } from 'react'
 import { Menu, Form, Icon } from 'semantic-ui-react';
 
-const AppHeader = ({ handleSearch, pageDispatch, layoutDispatch }) => {
+const AppHeader = ({ handleSearch, clearSearch, setLayout }) => {
     const [searchText, setSearchText] = useState('');
+
     const handleChange = (e, {value}) => {
         setSearchText (value);
     }
 
     const handleItemClick = (e, { name }) => {
-        layoutDispatch ({ type: name.toUpperCase() });
+        setLayout (name.toUpperCase());
     }
 
     const handleOnSubmit = () => {
-        handleSearch (searchText);
-        pageDispatch ({ type: 'RESET_PAGE' });
+        if (searchText.trim() !== '') {
+            handleSearch (searchText);
+        }
+    }
+
+    const handleClearSearch = () => {
+        setSearchText ('');
+        clearSearch ();
     }
 
     return (
@@ -22,9 +29,11 @@ const AppHeader = ({ handleSearch, pageDispatch, layoutDispatch }) => {
                 <Menu.Menu position='left'>
                     <Menu.Item>
                         <Form onSubmit={handleOnSubmit}>
-                            <Form.Input icon='search'
+                            <Form.Input
+                                icon={{ name: searchText ? 'close' : 'search', link: true,
+                                        onClick: handleClearSearch, size: 'large' }}
                                 value={searchText}
-                                placeholder='Search by name and press enter' inverted
+                                placeholder='Search by name' inverted
                                 onChange={handleChange}/>
                         </Form>
                     </Menu.Item>

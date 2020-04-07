@@ -21,18 +21,22 @@ export const cardReducer = (state, action) => {
             return { ...state, error, loading: false };
         case 'FETCH_CARDS_COMPLETE':
             return { ...state, loading: false };
+        case 'CLEAR_CARDS':
+            return { ...state, cards:[] };
         default:
             return state;
     }
 }
 
 export const pageReducer = (state, action) => {
-    const { type } = action;
+    const { type, hasNext } = action;
     switch (type) {
+        case 'SET_PAGE':
+            return { ...state, hasNext }
         case 'NEXT_PAGE':
             return { ...state, page: state.page + 1 };
         case 'RESET_PAGE':
-            return { ...state, page: START_PAGE};
+            return { ...state, page: START_PAGE, hasNext: true };
         default:
             return state;
     }

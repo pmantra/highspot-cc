@@ -7,7 +7,7 @@ import useFetch from './hooks/useFetch';
 import useInfiniteScroll from './hooks/useInfiniteScroll';
 import useLazyLoading from './hooks/useLazyLoading';
 import { Loader } from 'semantic-ui-react';
-import { API, CARD_SELECTOR, DEFAULT_PAGE_SIZE, START_PAGE, DEFAULT_LAYOUT } from './utils/constants';
+import { CARD_SELECTOR, START_PAGE, DEFAULT_LAYOUT } from './utils/constants';
 
 function App() {
   const initialState = {
@@ -15,11 +15,11 @@ function App() {
       cards: [],
       error: null,
       loading: false,
-      totalCount: 0
+      totalCount: 0,
     },
     pageState: {
       page: START_PAGE,
-      pageSize: DEFAULT_PAGE_SIZE
+      hasNext: false,
     },
     layoutState: {
       layout: DEFAULT_LAYOUT
@@ -31,15 +31,31 @@ function App() {
   const [layoutData, layoutDispatch] = useReducer (layoutReducer, initialState.layoutState);
   const [searchText, setSearchText] = useState ('');
 
-  useFetch (API, searchText, pageData.page, pageData.pageSize, cardDispatch);
+  useFetch (searchText, pageData, cardDispatch, pageDispatch);
   useLazyLoading (CARD_SELECTOR, cardData.cards);
   let scrollRef = useRef(null);
   useInfiniteScroll(scrollRef, pageDispatch);
 
+  const handleSearch = (searchText) => {
+    cardDispatch ({ type: 'CLEAR_CARDS' });
+    pageDispatch ({ type: 'RESET_PAGE' });
+    setSearchText (searchText);
+  }
+
+  const clearSearch = () => {
+    cardDispatch ({ type: 'CLEAR_CARDS' });
+    pageDispatch ({ type: 'RESET_PAGE' });
+    setSearchText ('');
+  }
+
+  const setLayout = (layout) => {
+    layoutDispatch ({ type: layout });
+  }
+
   const appHeaderProps = {
-    handleSearch: setSearchText,
-    pageDispatch,
-    layoutDispatch
+    handleSearch,
+    clearSearch,
+    setLayout
   }
 
   const appBodyProps = {

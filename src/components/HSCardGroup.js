@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Message } from 'semantic-ui-react';
 import HSCard from './HSCard';
 import HSCardPlaceholder from './HSCardPlaceholder';
 
@@ -12,6 +12,16 @@ const HSCardGroup = ({ cards, loading, layout }) => {
                     <HSCardPlaceholder key={index}/>
                 ))}
             </Card.Group>
+        )
+    }
+    else if (cards.length === 0) {
+        return (
+            <Message>
+                <Message.Header>No Cards To Show</Message.Header>
+                <p>
+                    There are no cards matching the search key
+                </p>
+            </Message>
         )
     }
     return (

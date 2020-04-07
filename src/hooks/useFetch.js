@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { buildUrl } from '../utils/helper';
+import { API, DEFAULT_PAGE_SIZE } from '../utils/constants';
 
 /**
  * Hook to fetch cards from api using the URL, searchKey and page passed. Api is called initially
@@ -11,38 +12,49 @@ import { buildUrl } from '../utils/helper';
  * @param {*} pageSize - set at 20
  * @param {*} dispatch -
  */
-const useFetch = (baseUrl, searchKey, page, pageSize, dispatch) => {
-    const url = buildUrl(baseUrl, searchKey, page, pageSize);
+const useFetch = (searchKey, pageState, cardDispatch, pageDispatch) => {
+    const url = buildUrl(API, searchKey, pageState.page, DEFAULT_PAGE_SIZE);
     useEffect (() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
 
         const doFetch = async () => {
-            dispatch ({
+            cardDispatch ({
                 type: 'FETCH_CARDS_REQUEST'
             });
             try {
-                const response = await fetch(url);
-                const { cards, _links, _pageSize, _totalCount } = await response.json();
-                if (!signal.aborted) {
-                    dispatch ({
-                        type: searchKey.trim() === '' ? 'FETCH_CARDS_SUCCESS' : 'SEARCH_CARDS_SUCCESS',
-                        cards,
-                        next: _links ? _links.next : '',
-                        pageSize: _pageSize ? _pageSize : 0,
-                        totalCount: _totalCount ? _totalCount : 0
-                    });
+                //call api to fetch cards if there is a next page available
+                //hasNext will be undefined is there is no next page returned in response
+                if (pageState.hasNext !== undefined) {
+                    const response = await fetch(url);
+                    const { cards, _links, _totalCount } = await response.json();
+
+                    if (!signal.aborted) {
+                        //store cards in the cards store
+                        //use different redux actions to differentiate user actions
+                        cardDispatch ({
+                            type: searchKey.trim() === '' ? 'FETCH_CARDS_SUCCESS' : 'SEARCH_CARDS_SUCCESS',
+                            cards,
+                            totalCount: _totalCount ? _totalCount : 0
+                        });
+                        //check if there is a next link available in the response and set it in page store
+                        pageDispatch ({
+                            type: 'SET_PAGE',
+                            hasNext: _links && _links.next
+                        });
+                    }
                 }
+
             } catch (error) {
                 if (!signal.aborted) {
-                    dispatch ({
+                    cardDispatch ({
                         type: 'FETCH_CARDS_ERROR',
                         error
                     });
                 }
             } finally {
                 if (!signal.aborted) {
-                    dispatch ({
+                    cardDispatch ({
                         type: 'FETCH_CARDS_COMPLETE'
                     });
                 }
@@ -53,7 +65,7 @@ const useFetch = (baseUrl, searchKey, page, pageSize, dispatch) => {
         return () => {
             abortController.abort();
         }
-    }, [searchKey, page, dispatch])
+    }, [searchKey, pageState.page, cardDispatch])
 }
 
 export default useFetch;
