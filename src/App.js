@@ -7,21 +7,23 @@ import useFetch from './hooks/useFetch';
 import useInfiniteScroll from './hooks/useInfiniteScroll';
 import useLazyLoading from './hooks/useLazyLoading';
 import { Loader } from 'semantic-ui-react';
-import { CARD_SELECTOR, START_PAGE, DEFAULT_LAYOUT } from './utils/constants';
+import { DEFAULT_URL, CARD_SELECTOR, DEFAULT_LAYOUT, START_PAGE } from './utils/constants';
 
 function App() {
-  //declare the initial state - can be scaled using redux
+  //declare the initial state which can be scaled out using redux
   const initialState = {
     cardState: {
       cards: [],
       error: null,
-      loading: null,
+      loading: false,
       totalCount: 0,
     },
     pageState: {
       page: START_PAGE,
-      hasNext: false,
+      url: DEFAULT_URL,
+      nextUrl: DEFAULT_URL,
     },
+
     layoutState: {
       layout: DEFAULT_LAYOUT
     }
@@ -32,15 +34,15 @@ function App() {
   const [layoutData, layoutDispatch] = useReducer (layoutReducer, initialState.layoutState);
   const [searchText, setSearchText] = useState ('');
 
-  useFetch (searchText, pageData.page, pageData.hasNext, cardDispatch, pageDispatch);
-  useLazyLoading (CARD_SELECTOR, cardData.cards);
   let scrollRef = useRef(null);
   useInfiniteScroll(scrollRef, pageDispatch);
+  useLazyLoading (CARD_SELECTOR, cardData.cards);
+  useFetch (pageData.url, searchText, cardDispatch, pageDispatch);
 
   const handleSearch = (searchText) => {
     cardDispatch ({ type: 'CLEAR_CARDS' });
-    pageDispatch ({ type: 'RESET_PAGE' });
-    setSearchText (searchText);
+    setSearchText ('searchText');
+    pageDispatch ({ type: 'SEARCH_PAGE', searchText });
   }
 
   const clearSearch = () => {
@@ -54,6 +56,8 @@ function App() {
   }
 
   const appHeaderProps = {
+    cardCount: cardData.cards.length,
+    totalCount: cardData.totalCount,
     handleSearch,
     clearSearch,
     setLayout
@@ -61,7 +65,7 @@ function App() {
 
   const appBodyProps = {
     cards: cardData.cards,
-    showInitialLoading: cardData.loading && pageData.page < 2,
+    showInitialLoading: cardData.loading && pageData.page === 1,
     layout: layoutData.layout
   }
 
@@ -72,7 +76,7 @@ function App() {
       {pageData.page > 1 &&
         <Loader inline active={cardData.loading} size='large'>Loading</Loader>
       }
-      <div id='page-bottom-boundary' ref={scrollRef}></div>
+      <div className='scroll-ref' id='page-bottom-boundary' ref={scrollRef}></div>
     </div>
   );
 }

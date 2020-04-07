@@ -1,4 +1,5 @@
-import { START_PAGE, DEFAULT_LAYOUT, RELAXED_LAYOUT, COMPACT_LAYOUT } from '../utils/constants';
+import { DEFAULT_URL, DEFAULT_LAYOUT, RELAXED_LAYOUT, COMPACT_LAYOUT } from '../utils/constants';
+import { buildUrl } from '../utils/helper';
 
 export const cardReducer = (state, action) => {
     const { cards, type, error, next, totalCount, pageSize } = action;
@@ -29,14 +30,19 @@ export const cardReducer = (state, action) => {
 }
 
 export const pageReducer = (state, action) => {
-    const { type, hasNext } = action;
+    const { type, nextUrl, searchText } = action;
     switch (type) {
         case 'SET_PAGE':
-            return { ...state, hasNext }
+            return { ...state, nextUrl }
         case 'NEXT_PAGE':
-            return { ...state, page: state.page + 1 };
+            if (state.url.includes ('name')) {
+                return state;
+            }
+            return { ...state, url:  state.nextUrl, page: state.page + 1 };
+        case 'SEARCH_PAGE':
+            return { ...state, url: buildUrl (searchText), nextUrl: DEFAULT_URL};
         case 'RESET_PAGE':
-            return { ...state, page: START_PAGE, hasNext: true };
+            return { ...state, url: DEFAULT_URL, nextUrl: DEFAULT_URL };
         default:
             return state;
     }

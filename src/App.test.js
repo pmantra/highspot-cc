@@ -53,7 +53,6 @@ it("renders without crashing", () => {
 
   it("should return data with a successful request", async () => {
     const { result } = renderHook(() => useFetch());
-    console.log('result', result);
     const url = buildUrl (API, '', START_PAGE, DEFAULT_PAGE_SIZE);
     fetchMock.mock(url, {
       returnedDataSize: DEFAULT_PAGE_SIZE

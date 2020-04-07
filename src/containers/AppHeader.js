@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Menu, Form, Icon } from 'semantic-ui-react';
+import { Menu, Form, Icon, Header } from 'semantic-ui-react';
 
-const AppHeader = ({ handleSearch, clearSearch, setLayout }) => {
+const AppHeader = ({ cardCount, totalCount, handleSearch, clearSearch, setLayout }) => {
     const [searchText, setSearchText] = useState('');
 
     const handleChange = (e, {value}) => {
@@ -36,6 +36,9 @@ const AppHeader = ({ handleSearch, clearSearch, setLayout }) => {
                                 placeholder='Search by name' inverted
                                 onChange={handleChange}/>
                         </Form>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Header inverted as='h4'>Showing {cardCount} of {totalCount} Cards</Header>
                     </Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position='right'>

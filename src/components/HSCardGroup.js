@@ -14,7 +14,7 @@ const HSCardGroup = ({ cards, loading, layout }) => {
             </Card.Group>
         )
     }
-    else if (loading===false && cards.length === 0) {
+    if (!loading && cards.length === 0) {
         return (
             <Message>
                 <Message.Header>No Cards To Show</Message.Header>
@@ -26,10 +26,10 @@ const HSCardGroup = ({ cards, loading, layout }) => {
     }
     return (
         <Card.Group centered stackable
-            itemsPerRow={layout} textAlign='center'>
-            {cards && cards.map(item => (
-                <HSCard key={item.id} {...item} />
-            ))}
+        itemsPerRow={layout} textAlign='center'>
+        {cards && cards.map(item => (
+            <HSCard key={item.id} {...item} />
+        ))}
         </Card.Group>
     )
 }

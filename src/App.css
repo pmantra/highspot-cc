@@ -28,6 +28,10 @@
   font-size: 1rem;
 }
 
+.scroll-ref {
+  margin-top: 1rem;
+}
+
 .ui.card>.content>.header+.description, .ui.card>.content>.meta+.description, .ui.cards>.card>.content>.header+.description, .ui.cards>.card>.content>.meta+.description {
   margin-top: 0em; /*override margin between header and description in the card*/
 }
