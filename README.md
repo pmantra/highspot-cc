@@ -64,3 +64,4 @@ This hook also uses the InteresectionObserver API to lazily load the images from
 3. Smashing Magazine - Implement infinite scroll with lazy image loading [https://www.smashingmagazine.com/2020/03/infinite-scroll-lazy-image-loading-react/](https://www.smashingmagazine.com/2020/03/infinite-scroll-lazy-image-loading-react/).
 4. Create your own useFetch hook [https://medium.com/better-programming/learn-to-create-your-own-usefetch-react-hook-9cc31b038e53](https://medium.com/better-programming/learn-to-create-your-own-usefetch-react-hook-9cc31b038e53)
 5. MDN Intersection API [https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+6. ElderScrolls API [https://docs.elderscrollslegends.io/#api_v1cards_list](https://docs.elderscrollslegends.io/#api_v1cards_list)
