@@ -2,17 +2,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Run the app in production mode (recommended) or development mode
 
-## Production Mode
+### Production Mode
 In the project directory, you can run:
 ### `yarn build`
 Builds the app for production to the `build` folder.<br />
-To serve the build folder
+To serve the build folder (install serve `yarn global add serve`)
 
 ### `serve -s build`
 Runs the app in the production mode.<br />
 Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
-## Development Mode
+### Development Mode
 In the project directory, you can run:
 ### `yarn start`
 Runs the app in the development mode.<br />
