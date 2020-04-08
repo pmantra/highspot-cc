@@ -4,7 +4,7 @@ import HSCard from './HSCard';
 import HSCardPlaceholder from './HSCardPlaceholder';
 
 const HSCardGroup = ({ cards, loading, layout }) => {
-    if(loading) {
+    if(loading === true && cards.length === 0) {
         return (
             <Card.Group centered stackable
                 itemsPerRow={layout} textAlign='center'>
@@ -14,7 +14,7 @@ const HSCardGroup = ({ cards, loading, layout }) => {
             </Card.Group>
         )
     }
-    if (!loading && cards.length === 0) {
+    if (loading === false && cards.length === 0) {
         return (
             <Message>
                 <Message.Header>No Cards To Show</Message.Header>

@@ -10,7 +10,7 @@ import { Loader } from 'semantic-ui-react';
 import { DEFAULT_URL, CARD_SELECTOR, DEFAULT_LAYOUT, START_PAGE } from './utils/constants';
 
 function App() {
-  //declare the initial state which can be scaled out using redux
+  //all state is stored in App component
   const initialState = {
     cardState: {
       cards: [],
@@ -35,10 +35,12 @@ function App() {
   const [searchText, setSearchText] = useState ('');
 
   let scrollRef = useRef(null);
+
   useInfiniteScroll(scrollRef, pageDispatch);
   useLazyLoading (CARD_SELECTOR, cardData.cards);
   useFetch (pageData.url, searchText, cardDispatch, pageDispatch);
 
+/*handling functions*/
   const handleSearch = (searchText) => {
     cardDispatch ({ type: 'CLEAR_CARDS' });
     setSearchText ('searchText');
@@ -73,9 +75,11 @@ function App() {
     <div className="App">
       <AppHeader {...appHeaderProps}/>
       <AppBody {...appBodyProps}/>
+
       {pageData.page > 1 &&
         <Loader inline active={cardData.loading} size='large'>Loading</Loader>
       }
+
       <div className='scroll-ref' id='page-bottom-boundary' ref={scrollRef}></div>
     </div>
   );

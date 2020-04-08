@@ -29,7 +29,8 @@
 }
 
 .scroll-ref {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .ui.card>.content>.header+.description, .ui.card>.content>.meta+.description, .ui.cards>.card>.content>.header+.description, .ui.cards>.card>.content>.meta+.description {
@@ -37,5 +38,5 @@
 }
 
 .ui.card>.content, .ui.cards>.card>.content {
-  padding: 0.5em 0.5em;
+  padding: 0.5em 0.5em; /*override padding in card content*/
 }

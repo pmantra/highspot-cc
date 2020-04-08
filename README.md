@@ -1,68 +1,66 @@
+## Install Instructions
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Run the app in production mode (recommended) or development mode
 
-## Available Scripts
-
+## Production Mode
 In the project directory, you can run:
+### `yarn build`
+Builds the app for production to the `build` folder.<br />
+To serve the build folder
 
+### `serve -s build`
+Runs the app in the production mode.<br />
+Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
+
+## Development Mode
+In the project directory, you can run:
 ### `yarn start`
-
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Libraries
+App is build using following libraries
+1. ReactJS
+2. Semantic UI React - a rich component library that the app leverages on
 
-### `yarn test`
+## Features
+1. First set of 20 cards are displayed to the user immediately
+2. Next set of 20 cards will be shown as the user scrolls down until all cards have been displayed
+3. User can search cards with name and results are shown that partially match the name
+4. Search results contain cards with image and the following attributes
+    a. Name
+    b. Set Name
+    c. Type
+    d. Text (shown on hovering the info icon)
+    e. Cost
+    d. Health
+    f. Power
+5. There are 3 different layouts provided for the user to browser the cards
+    a. Default
+    b. Relaxed
+    c. Compact
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Implementation Details
+###State
+All state is stored in App component and redux style stores to organize cards, page and urls and layout. The reducers can be plugged in with a redux store if needed
 
-### `yarn build`
+###Hooks
+There are 3 hooks, each with a specific functionality
+1. useFetch
+This hook is used to fetch cards from api on user scroll or on search by name. Each fetch updates the store with card and page info
+2. useInfiniteScroll
+This hook uses the browser's InteresectionObserver API to listen to scroll event that reaches the scrollRef in the HTML and updates the page store which then calls the useEffect hook to fetch cards with the next page
+3. useLazyLoading
+This hook also uses the InteresectionObserver API to lazily load the images from api on the UI by first showing a placeholder image and then download the images and load them once newly fetched cards are in viewport
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Known Issues
+1. Infinite scroll is disabled on search results - only shows first 20 results
+2. No results message is displayed on loading screen
+3. Needs more unit tests
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## References
+1. Official React Hooks Documentation [https://reactjs.org/docs/hooks-intro.html](https://reactjs.org/docs/hooks-intro.html)
+2. Official Semantic React UI Documentation [https://react.semantic-ui.com/](https://react.semantic-ui.com/)
+3. Smashing Magazine - Implement infinite scroll with lazy image loading [https://www.smashingmagazine.com/2020/03/infinite-scroll-lazy-image-loading-react/](https://www.smashingmagazine.com/2020/03/infinite-scroll-lazy-image-loading-react/).
+4. Create your own useFetch hook [https://medium.com/better-programming/learn-to-create-your-own-usefetch-react-hook-9cc31b038e53](https://medium.com/better-programming/learn-to-create-your-own-usefetch-react-hook-9cc31b038e53)
+5. MDN Intersection API [https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
