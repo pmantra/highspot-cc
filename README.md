@@ -58,6 +58,13 @@ This hook also uses the InteresectionObserver API to lazily load the images from
 2. No results message is displayed on loading screen
 3. Needs more unit tests
 
+## Proposed Enhancements
+1. Add scroll to top button to skip to top
+2. Expand search criteria to other attributes including exact matches
+3. Add UI filtering to narrow down downloaded cards
+4. Enrich card information by displaying additional attributes/data on clicking of cards
+5. Add feature to maintain card favorities
+
 ## References
 1. Official React Hooks Documentation [https://reactjs.org/docs/hooks-intro.html](https://reactjs.org/docs/hooks-intro.html)
 2. Official Semantic React UI Documentation [https://react.semantic-ui.com/](https://react.semantic-ui.com/)

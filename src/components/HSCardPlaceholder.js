@@ -1,6 +1,9 @@
 import React from 'react';
 import { Card, Placeholder } from 'semantic-ui-react';
 
+/**
+ * Placeholder card that is shown when api call is in progress
+ */
 const HSCardPlaceholder = () => {
     return  (
         <Card>

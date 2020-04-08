@@ -12,18 +12,20 @@ import { DEFAULT_URL, CARD_SELECTOR, DEFAULT_LAYOUT, START_PAGE } from './utils/
 function App() {
   //all state is stored in App component
   const initialState = {
+    //card store
     cardState: {
       cards: [],
       error: null,
       loading: false,
       totalCount: 0,
     },
+    //page info store
     pageState: {
       page: START_PAGE,
       url: DEFAULT_URL,
       nextUrl: DEFAULT_URL,
     },
-
+    //layout store
     layoutState: {
       layout: DEFAULT_LAYOUT
     }
@@ -34,6 +36,7 @@ function App() {
   const [layoutData, layoutDispatch] = useReducer (layoutReducer, initialState.layoutState);
   const [searchText, setSearchText] = useState ('');
 
+  //scrollRef to keep track of scrolling reference at the bottom of div
   let scrollRef = useRef(null);
 
   useInfiniteScroll(scrollRef, pageDispatch);

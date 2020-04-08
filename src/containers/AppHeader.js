@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { Menu, Form, Icon, Header } from 'semantic-ui-react';
 
+/**
+ * Container for App header
+ * Contains the form input for searching with name and layout controls to switch card layout in the grid
+ * @param {*} param
+ */
 const AppHeader = ({ cardCount, totalCount, handleSearch, clearSearch, setLayout }) => {
     const [searchText, setSearchText] = useState('');
 

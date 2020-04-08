@@ -3,6 +3,10 @@ import { Card, Message } from 'semantic-ui-react';
 import HSCard from './HSCard';
 import HSCardPlaceholder from './HSCardPlaceholder';
 
+/**
+ * This is a card holder component that shows all the cards
+ * Uses semantic card.group component with built in support to switch to stacked display on mobile screens
+ */
 const HSCardGroup = ({ cards, loading, layout }) => {
     if(loading === true && cards.length === 0) {
         return (

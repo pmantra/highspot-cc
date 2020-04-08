@@ -2,6 +2,11 @@ import React from 'react'
 import { Card, Image, Icon, Popup, List } from 'semantic-ui-react'
 import { PLACEHOLDER_IMAGE } from '../utils/constants';
 
+/**
+ * Card component containing the image and the card attributes from api
+ * Uses semantic card component
+ * @param {*} props
+ */
 export default function ImageCard (props) {
     const {name, imageUrl, text, set, type, cost, health, power} = props;
     return (

@@ -43,6 +43,7 @@ it("renders without crashing", () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
+//disable the test (a bit complex due to multiple hooks involved)
 /* describe("useFetch", () => {
   beforeAll(() => {
     global.fetch = fetch;

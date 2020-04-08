@@ -17,6 +17,7 @@ const useLazyLoading = (cardSelector, cards) => {
                     if (!imageUrl) {
                         console.error ('Image Url is invalid');
                     } else {
+                        //replace placeholder image with image url
                         currentCard.childNodes[0].src = imageUrl;
                     }
                     intersectionObserver.unobserve(node);
@@ -28,6 +29,7 @@ const useLazyLoading = (cardSelector, cards) => {
 
     const cardsRef = useRef (null);
     useEffect (() => {
+        //fetch all cards that were newly fetched with the selector
         cardsRef.current = document.querySelectorAll (cardSelector);
         if (cardsRef.current) {
             cardsRef.current.forEach (card => cardObserver(card));

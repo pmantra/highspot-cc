@@ -1,6 +1,11 @@
 import { DEFAULT_URL, DEFAULT_LAYOUT, RELAXED_LAYOUT, COMPACT_LAYOUT } from '../utils/constants';
 import { buildUrl } from '../utils/helper';
 
+/**
+ * reducer to manage cards, page info and layout stores
+ * @param {*} state
+ * @param {*} action
+ */
 export const cardReducer = (state, action) => {
     const { cards, type, error, next, totalCount, pageSize } = action;
     switch (type) {
