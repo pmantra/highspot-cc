@@ -28,33 +28,33 @@ App is build using following libraries
 2. Next set of 20 cards will be shown as the user scrolls down until all cards have been displayed
 3. User can search cards with name and results are shown that partially match the name
 4. Search results contain cards with image and the following attributes
-    a. Name
-    b. Set Name
-    c. Type
-    d. Text (shown on hovering the info icon)
-    e. Cost
-    d. Health
-    f. Power
+    1. Name
+    2. Set Name
+    3. Type
+    4. Text (on hover)
+    5. Cost
+    6. Health
+    7. Power
 5. There are 3 different layouts provided for the user to browser the cards
     a. Default
     b. Relaxed
     c. Compact
 
 ## Implementation Details
-###State
+### State
 All state is stored in App component and redux style stores to organize cards, page and urls and layout. The reducers can be plugged in with a redux store if needed
 
-###Hooks
+### Hooks
 There are 3 hooks, each with a specific functionality
 1. useFetch
 This hook is used to fetch cards from api on user scroll or on search by name. Each fetch updates the store with card and page info
 2. useInfiniteScroll
 This hook uses the browser's InteresectionObserver API to listen to scroll event that reaches the scrollRef in the HTML and updates the page store which then calls the useEffect hook to fetch cards with the next page
 3. useLazyLoading
-This hook also uses the InteresectionObserver API to lazily load the images from api on the UI by first showing a placeholder image and then download the images and load them once newly fetched cards are in viewport
+This hook also uses the InteresectionObserver API to lazily load the images from api on the UI by  showing a placeholder and only download the images and shown them once newly fetched cards are in viewport
 
 ## Known Issues
-1. Infinite scroll is disabled on search results - only shows first 20 results
+1. Infinite scroll is disabled on search results - only shows first 20 search results
 2. No results message is displayed on loading screen
 3. Needs more unit tests
 
